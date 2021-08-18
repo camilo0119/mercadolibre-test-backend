@@ -4,8 +4,6 @@ const { DATA_AUTHOR } = require('../constanst/constants');
 
 const findCategoryById = async (req, res = response) => {
 
-  const { id } = req.params
-
   try {
     let response = await axios(`${process.env.API_MERCADOLIBRE}/categories/${req.params.id}`)
     response = response.data

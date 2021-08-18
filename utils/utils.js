@@ -27,7 +27,7 @@ const bffItem = ({
 
 const bffItemListObject = (payload) => {
   const response = bffItem(payload)
-  delete response.address
+  // delete response.address // Se deja prop de acuerdo al diseño
   delete response.sold_quantity
   return response
 }
