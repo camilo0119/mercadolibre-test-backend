@@ -21,14 +21,17 @@ const bffItem = ({
   picture: thumbnail,
   condition,
   free_shipping: shipping.free_shipping,
-  address: address.state_name ?? '',
+  address: !!address ? address.state_name : '',
   sold_quantity,
 })
 
-const bffItemListObject = (payload) => {
+const bffObjectFill = (payload, propsDelete = []) => {
   const response = bffItem(payload)
-  // delete response.address // Se deja prop de acuerdo al diseño
-  delete response.sold_quantity
+  if (propsDelete) {
+    propsDelete.forEach(keyName => {
+      delete response[keyName]
+    })
+  }
   return response
 }
 
@@ -37,7 +40,7 @@ const bffItemListResponse = ({ results, filters}) => {
   return {
     ...constants.DATA_AUTHOR,
     categories: categories ? categories?.values[0]?.path_from_root.map(category => category.name) : [],
-    items: results.slice(0, 4).map(item => bffItemListObject(item))
+    items: results.slice(0, 4).map(item => bffObjectFill(item, ['sold_quantity'])) // Consultar con negocio props address, segun mockups
   }
 }
 
@@ -53,6 +56,6 @@ const currencyFormatter = (value) => {
 
 module.exports = {
   bffItem,
-  bffItemListObject,
+  bffObjectFill,
   bffItemListResponse
 }
