@@ -5,13 +5,13 @@ const { DATA_AUTHOR } = require('../constanst/constants');
 const findCategoryById = async (req, res = response) => {
 
   try {
-    let response = await axios(`${process.env.API_MERCADOLIBRE}/categories/${req.params.id}`)
-    response = response.data
+    const response = await axios(`${process.env.API_MERCADOLIBRE}/categories/${req.params.id}`)
+    const { path_from_root} = response.data
 
-    if (response?.id) {
+    if (response.data) {
       res.json({
         ...DATA_AUTHOR,
-        ...response
+        categories: path_from_root
       })
     }
 

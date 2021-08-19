@@ -10,6 +10,7 @@ const bffItem = ({
   thumbnail,
   shipping,
   sold_quantity,
+  category_id
 }) => ({
   id,
   title,
@@ -23,6 +24,7 @@ const bffItem = ({
   free_shipping: shipping.free_shipping,
   address: !!address ? address.state_name : '',
   sold_quantity,
+  category_id
 })
 
 const bffObjectFill = (payload, propsDelete = []) => {
@@ -40,7 +42,7 @@ const bffItemListResponse = ({ results, filters}) => {
   return {
     ...constants.DATA_AUTHOR,
     categories: categories ? categories?.values[0]?.path_from_root.map(category => category.name) : [],
-    items: results.slice(0, 4).map(item => bffObjectFill(item, ['sold_quantity'])) // Consultar con negocio props address, segun mockups
+    items: results.slice(0, 4).map(item => bffObjectFill(item, ['sold_quantity', 'category_id'])) // Consultar con negocio props address, segun mockups
   }
 }
 
