@@ -11,7 +11,7 @@ const findCategoryById = async (req, res = response) => {
     if (response.data) {
       res.json({
         ...DATA_AUTHOR,
-        categories: path_from_root
+        categories: path_from_root.map(category => category.name)
       })
     }
 
